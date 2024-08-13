@@ -6,21 +6,23 @@ import pymorphy3
 bot = telebot.TeleBot(TOKEN)
 morph = pymorphy3.MorphAnalyzer()
 
+
 def normal_str_output(curency_name, amount):
     parsed_word = morph.parse(curency_name)[0]
-    
+
     if int(amount) == 1:
-        case = 'nomn'
+        case = "nomn"
     else:
-        case = 'gent'
-    
+        case = "gent"
+
     inflected = parsed_word.inflect({case})
-    
+
     if inflected is None:
         return curency_name
-    
+
     return inflected.word
-    
+
+
 @bot.message_handler(commands=["start", "help"])  # Помощь
 def start_message(message: telebot.types.Message):
     text = "Чтобы начать работу введите комндау боту в следующем формате:\n<Имя валюты>\
